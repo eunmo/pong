@@ -6,7 +6,7 @@ import { get } from './utils';
 import style from './Main.module.css';
 
 function TodayGames() {
-  const [games, setGames] = useState();
+  const [games, setGames] = useState([]);
 
   useEffect(() => {
     const dateString = new Date().toISOString().substring(0, 10);
@@ -15,11 +15,15 @@ function TodayGames() {
     });
   }, []);
 
+  if (!games) {
+    return null;
+  }
+
   return (
-    <div>
+    <>
       <div className={style.gamesHeader}>오늘의 결과</div>
       <div>{games && <Games games={games} />}</div>
-    </div>
+    </>
   );
 }
 
@@ -37,7 +41,9 @@ function Main() {
           순위표
         </LinkButton>
       </div>
-      <TodayGames />
+      <div>
+        <TodayGames />
+      </div>
     </div>
   );
 }
