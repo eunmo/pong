@@ -36,13 +36,13 @@ test('update one game', async () => {
   expect(row.rp).toBe(rp);
 
   const { id } = row;
-  ([l, r, lp, rp] = [5, 6, 7, 8]);
+  [l, r, lp, rp] = [5, 6, 7, 8];
   await editGame(id, l, r, lp, rp);
 
   rows = await query('SELECT * FROM game WHERE id = ?', [id]);
   expect(rows.length).toBe(1);
 
-  ([row] = rows);
+  [row] = rows;
   expect(row.l).toBe(l);
   expect(row.r).toBe(r);
   expect(row.lp).toBe(lp);
