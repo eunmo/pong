@@ -28,3 +28,4 @@ yarn-error.log*
 
 initdb/3_populate_data.sql
 initdb/4_dump.sql
+src/people.js
