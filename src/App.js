@@ -1,22 +1,28 @@
-import './App.css';
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
+
+import AddGame from './AddGame';
+import EditGame from './EditGame';
+import Header from './Header';
+import Main from './Main';
+import style from './App.module.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className={style.App}>
+        <Header />
+        <div className={style.body}>
+          <Routes>
+            <Route index element={<Main />} />
+            <Route path="game">
+              <Route path="add" element={<AddGame />} />
+              <Route path="edit/:id" element={<EditGame />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

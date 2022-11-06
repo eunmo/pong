@@ -1,0 +1,50 @@
+.GameForm form {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.GameForm label {
+  background-color: var(--highlight);
+  text-align: center;
+}
+
+.noInput {
+  color: var(--light-text);
+}
+
+input.selectedInput {
+  background-color: var(--action-color);
+  border-color: var(--action-color);
+  color: var(--background);
+}
+
+input.delete {
+  background-color: var(--highlight);
+  border-color: var(--highlight);
+  color: var(--red);
+  grid-column: span 4;
+}
+
+.GameForm input[type=submit],
+.personSelect,
+.pointInput {
+  grid-column: span 4;
+}
+
+.personSelect,
+.pointInput{
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pointInputDivider {
+  background-color: var(--highlight);
+  grid-column: span 4;
+  text-align: center;
+}
+
+.GameForm input[type=submit] {
+  height: 80px;
+}

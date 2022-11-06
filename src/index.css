@@ -1,3 +1,48 @@
+:root {
+  --red: rgb(255, 59, 48);
+  --blue: rgb(0, 122, 255);
+
+  --gray1: rgb(142, 142, 147);
+  --gray2: rgb(174, 174, 178);
+  --gray3: rgb(199, 199, 204);
+  --gray4: rgb(209, 209, 214);
+  --gray5: rgb(229, 229, 234);
+  --gray6: rgb(242, 242, 247);
+
+  --green: rgb(62, 252, 151);
+  --green1: rgb(1, 100, 47);
+  --green2: rgb(2, 150, 71);
+
+  --background: white;
+  --text: black;
+  --light-text: var(--gray1);
+  --border: var(--gray3);
+  --highlight: var(--gray6);
+
+  --button-height: 40px;
+  --large-button-height: 88px;
+  --action-color: var(--green2);
+}
+
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --red: rgb(255, 59, 48);
+    --blue: rgb(0, 122, 255);
+
+    --gray1: rgb(142, 142, 147);
+    --gray2: rgb(99, 99, 102);
+    --gray3: rgb(72, 72, 74);
+    --gray4: rgb(58, 58, 60);
+    --gray5: rgb(44, 44, 46);
+    --gray6: rgb(28, 28, 30);
+
+    --background: black;
+    --text: white;
+  }
+}
+*/
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +50,85 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text);
+  font-size: 20px;
 }
 
-code {
+code,
+.mono {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.header {
+  font-size: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+label {
+  font-size: 20px;
+  height: var(--button-height);
+  line-height: var(--button-height);
+}
+
+input,
+button {
+  border: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: var(--text);
+  font-size: 20px;
+  height: var(--button-height);
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type=text] {
+  border: 2px solid var(--border);
+}
+
+input[type="submit"] {
+  font-weight: normal;
+}
+
+input[type="submit"]:not(:disabled) {
+  background-color: var(--action-color);
+  color: var(--background);
+}
+
+input:disabled {
+  color: var(--light-text);
+}
+
+input[type="submit"]:disabled {
+  background-color: var(--highlight);
+}
+
+input[type="button"] {
+  background-color: var(--background);
+  border: 2px solid var(--border);
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: var(--action-color);
+  text-decoration: none;
+}
+
+.light-text {
+  color: var(--light-text);
+}
+
+.highlight {
+  background-color: var(--highlight);
 }

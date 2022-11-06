@@ -1,0 +1,9 @@
+.Header {
+  background-color: var(--text);
+  color: var(--green) !important;
+  display: block;
+  height: var(--button-height);
+  line-height: var(--button-height);
+  text-align: center;
+  width: 100%;
+}

@@ -4,6 +4,10 @@ function getGames() {
   return query('SELECT * FROM game');
 }
 
+function getGameById(id) {
+  return query('SELECT * FROM game WHERE id = ?', [id]);
+}
+
 function getGamesByPerson(id) {
   return query('SELECT * FROM game WHERE l = ? OR r = ?', [id, id]);
 }
@@ -26,6 +30,7 @@ function getHistory(id1, id2) {
 }
 
 module.exports = {
+  getGameById,
   getGames,
   getGamesByPerson,
   getGamesByDate,

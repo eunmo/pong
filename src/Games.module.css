@@ -1,0 +1,12 @@
+.Games {
+  display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
+  grid-gap: 8px;
+  grid-template-columns: 40px 3fr repeat(2, 1fr) 3fr 40px;
+  line-height: var(--button-height);
+  text-align: center;
+}
+
+.button {
+  border-radius: 20px;
+}
