@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/game', async (req, res) => {
   const { l, r, lp, rp } = req.body;
 
-  const gid = await addGame(l, r, lp, rp);
+  await addGame(l, r, lp, rp);
 
   res.sendStatus(200);
 });
