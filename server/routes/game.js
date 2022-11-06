@@ -1,8 +1,8 @@
 const express = require('express');
 const {
-  getGameById,
   getGameDates,
   getGamesByDate,
+  getGamesById,
   getGamesByPerson,
   getHistory,
 } = require('../db');
@@ -11,7 +11,13 @@ const router = express.Router();
 
 router.get('/id/:id', async (req, res) => {
   const { id } = req.params;
-  const [game] = await getGameById(id);
+  const games = await getGamesById(id);
+
+  if (games.length === 0) {
+    res.json(null);
+  }
+
+  const [game] = games;
   res.json(game);
 });
 

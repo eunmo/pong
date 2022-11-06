@@ -2,6 +2,7 @@ const {
   getGameDates,
   getGames,
   getGamesByDate,
+  getGamesById,
   getGamesByPerson,
   getHistory,
 } = require('./query');
@@ -25,6 +26,17 @@ beforeAll(async () => {
 test('get games', async () => {
   const rows = await getGames();
   expect(rows.length).toBe(4);
+});
+
+test('get game by id', async () => {
+  async function check(gid) {
+    const rows = await getGamesById(gid);
+    expect(rows.length).toBe(1);
+    const [row] = rows;
+    expect(row.id).toBe(gid);
+  }
+
+  await check(gid1);
 });
 
 test('get games by person', async () => {

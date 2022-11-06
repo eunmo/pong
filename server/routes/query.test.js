@@ -23,6 +23,16 @@ async function get(url) {
   return body;
 }
 
+test('get game by id', async () => {
+  const body = await get(`/api/game/id/${gid1}`);
+  expect(body.id).toBe(gid1);
+});
+
+test('get game by id', async () => {
+  const body = await get(`/api/game/id/-1`);
+  expect(body).toBe(null);
+});
+
 test('get game dates', async () => {
   const body = await get('/api/game/dates/');
   expect(body.length).toBe(2);
