@@ -15,14 +15,14 @@ function TodayGames() {
     });
   }, []);
 
-  if (!games) {
+  if (games.length === 0) {
     return null;
   }
 
   return (
     <>
       <div className={style.gamesHeader}>오늘의 결과</div>
-      <div>{games && <Games games={games} />}</div>
+      <Games games={games} />
     </>
   );
 }
