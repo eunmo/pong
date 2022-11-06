@@ -33,6 +33,9 @@ function Main() {
         <LinkButton size="lg" to="game/calendar">
           과거 기록 열람
         </LinkButton>
+        <LinkButton size="lg" to="rating">
+          순위표
+        </LinkButton>
       </div>
       <TodayGames />
     </div>

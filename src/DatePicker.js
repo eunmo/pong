@@ -50,7 +50,7 @@ function toYMD(y, m, d) {
   return new Date(Date.UTC(y, m - 1, d)).toISOString().substring(0, 10);
 }
 
-export default function DatePicker() {
+function DatePicker() {
   const [months, setMonths] = useState();
   const [monthIndex, setMonthIndex] = useState();
 
@@ -126,3 +126,5 @@ export default function DatePicker() {
     </div>
   );
 }
+
+export default DatePicker;

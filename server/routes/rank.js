@@ -6,8 +6,7 @@ const router = express.Router();
 
 router.get('', async (req, res) => {
   const games = await getGames();
-  const people = {};
-  calculate(games, people);
+  const people = calculate(games, {});
   res.json({ ratings: Object.values(people) });
 });
 

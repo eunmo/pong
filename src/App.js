@@ -6,6 +6,7 @@ import EditGame from './EditGame';
 import GameDate from './GameDate';
 import Header from './Header';
 import Main from './Main';
+import Rating from './Rating';
 import style from './App.module.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="calendar" element={<DatePicker />} />
               <Route path="date/:date" element={<GameDate />} />
             </Route>
+            <Route path="rating" element={<Rating />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

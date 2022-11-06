@@ -1,6 +1,8 @@
 const defaultRank = { rating: 1400 };
 
-function calculate(games, people) {
+function calculate(games, preset) {
+  const people = { ...preset };
+
   games.forEach(({ l, r, lp, rp }) => {
     const left = people[l] ?? { id: l, ...defaultRank };
     const right = people[r] ?? { id: r, ...defaultRank };

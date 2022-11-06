@@ -22,11 +22,11 @@ test.each([
     rightRatingAfter
   ) => {
     const games = [{ l: 1, r: 2, lp, rp }];
-    const people = {
+    const preset = {
       1: { id: 1, rating: leftRatingBefore },
       2: { id: 2, rating: rightRatingBefore },
     };
-    calculate(games, people);
+    const people = calculate(games, preset);
 
     expect(people[1].rating).toBe(leftRatingAfter);
     expect(people[2].rating).toBe(rightRatingAfter);
