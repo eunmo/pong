@@ -1,0 +1,21 @@
+.Person {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+  text-align: center;
+}
+
+.opponents {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 1fr 2fr 40px;
+}
+
+.stat {
+  height: var(--button-height);
+  line-height: var(--button-height);
+}
+
+.button {
+  border-radius: 20px;
+}

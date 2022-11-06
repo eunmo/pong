@@ -1,12 +1,35 @@
 .Games {
-  display: grid;
-  grid-auto-rows: minmax(min-content, max-content);
-  grid-gap: 8px;
-  grid-template-columns: 40px 3fr repeat(2, 1fr) 3fr 40px;
   line-height: var(--button-height);
   text-align: center;
 }
 
-.button {
+.loser {
+  background-color: var(--background);
+}
+
+.gameLink {
   border-radius: 20px;
+}
+
+.nameGrid {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 8px;
+}
+
+.nameGrid button {
+  background-color: var(--background);
+  border: 2px solid var(--action-color);
+}
+
+.nameGrid button.selected {
+  background-color: var(--action-color);
+  color: var(--background);
+}
+
+.gameGrid {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 40px 3fr repeat(2, 1fr) 3fr 40px;
 }

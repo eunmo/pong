@@ -1,0 +1,35 @@
+.Duo {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.gameGrid {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 1fr 1fr 40px 40px 1fr;
+}
+
+.gameGrid div {
+  height: var(--button-height);
+  line-height: var(--button-height);
+}
+
+.name {
+  display: inline;
+  background-color: var(--background);
+}
+
+.footer {
+  margin-top: 8px;
+}
+
+.date {
+  background-color: var(--background);
+}

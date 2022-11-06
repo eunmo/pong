@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 
+import LinkButton from './LinkButton';
 import { get, peopleMap } from './utils';
 import style from './Rating.module.css';
 
@@ -30,7 +31,9 @@ function Rating() {
         {ratings.map(({ id, rating }, index) => (
           <Fragment key={id}>
             <div className={style.rank}>{index + 1}</div>
-            <div>{peopleMap[id].name}</div>
+            <LinkButton size="sm" to={`/person/${id}`} cn={style.name}>
+              {peopleMap[id].name}
+            </LinkButton>
             <div className="mono">{rating}</div>
           </Fragment>
         ))}

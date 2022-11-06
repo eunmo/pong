@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Games from './Games';
 import { get, formatDate } from './utils';
 
-export default function GameDate() {
+function GameDate() {
   const [games, setGames] = useState();
   const { date } = useParams();
 
@@ -19,3 +19,5 @@ export default function GameDate() {
     </div>
   );
 }
+
+export default GameDate;

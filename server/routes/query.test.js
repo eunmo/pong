@@ -90,3 +90,18 @@ test('get rank', async () => {
   expect(ratingMap[2]).toBe(1391);
   expect(ratingMap[3]).toBe(1381);
 });
+
+test('get person summary', async () => {
+  async function check(pid1, pid2, count, wins) {
+    const { opponents } = await get(`/api/person/summary/${pid1}`);
+    const opponent = opponents.find(({ id }) => id === pid2);
+    expect(opponent).toStrictEqual({ id: pid2, count, wins });
+  }
+
+  await check(1, 2, 2, 2);
+  await check(2, 1, 2, 0);
+  await check(1, 3, 1, 1);
+  await check(3, 1, 1, 0);
+  await check(2, 3, 1, 1);
+  await check(3, 2, 1, 0);
+});

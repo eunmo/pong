@@ -21,3 +21,7 @@
 .label {
   background-color: var(--highlight);
 }
+
+.name {
+  background-color: var(--background);
+}
