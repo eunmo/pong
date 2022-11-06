@@ -28,7 +28,7 @@ test('get game by id', async () => {
   expect(body.id).toBe(gid1);
 });
 
-test('get game by id', async () => {
+test('get game by invalid id', async () => {
   const body = await get(`/api/game/id/-1`);
   expect(body).toBe(null);
 });
@@ -76,4 +76,17 @@ test('get history', async () => {
   await check(3, 1, [gid3]);
   await check(2, 3, [gid4]);
   await check(3, 2, [gid4]);
+});
+
+test('get rank', async () => {
+  const { ratings } = await get('/api/rank');
+
+  expect(ratings.length).toBe(3);
+
+  const ratingMap = Object.fromEntries(
+    ratings.map(({ id, rating }) => [id, rating])
+  );
+  expect(ratingMap[1]).toBe(1428);
+  expect(ratingMap[2]).toBe(1391);
+  expect(ratingMap[3]).toBe(1381);
 });
