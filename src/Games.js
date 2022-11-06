@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 import LinkButton from './LinkButton';
-import { Edit, View } from './svg';
+import { Edit } from './svg';
 import { peopleMap } from './utils';
 import style from './Games.module.css';
 
@@ -11,16 +11,16 @@ function Score({ scores }) {
   );
 }
 
-function GameLink({ id, editable }) {
-  const to = `/game/${editable ? 'edit' : 'view'}/${id}`;
+function GameLink({ id }) {
+  const to = `/game/edit/${id}`;
   return (
     <LinkButton size="sm" to={to} cn={style.button}>
-      {editable ? <Edit /> : <View />}
+      <Edit />
     </LinkButton>
   );
 }
 
-function Games({ games, editable }) {
+function Games({ games }) {
   return (
     <div className={style.Games}>
       {games.map(({ id, l, r, lp, rp }, index) => (
@@ -30,7 +30,7 @@ function Games({ games, editable }) {
           <Score scores={[lp, rp]} />
           <Score scores={[rp, lp]} />
           <div className={lp < rp ? 'highlight' : ''}>{peopleMap[r]?.name}</div>
-          <GameLink id={id} type="individual" editable={editable} />
+          <GameLink id={id} type="individual" />
         </Fragment>
       ))}
     </div>
