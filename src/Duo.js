@@ -67,7 +67,7 @@ function Duo() {
       </div>
       <div className={style.subtitle}>{`${sorted.length}경기 ${desc}`}</div>
       <div className={style.gameGrid}>
-        {games.map(({ id, lp, rp, time }) => (
+        {sorted.map(({ id, lp, rp, time }) => (
           <Fragment key={id}>
             <LinkButton
               size="sm"
