@@ -5,8 +5,6 @@ const {
   getGamesById,
   getGamesByPerson,
   getHistory,
-  getPersons,
-  getAllPersons,
 } = require('./query');
 const { prepare, cleanup } = require('./mock');
 

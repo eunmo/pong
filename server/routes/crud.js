@@ -65,4 +65,10 @@ router.delete('/game', async (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/sync', async (req, res) => {
+  await restoreHistory();
+
+  res.sendStatus(200);
+});
+
 module.exports = router;

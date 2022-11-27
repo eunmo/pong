@@ -1,4 +1,4 @@
-const { dml, query, cleanup } = require('@eunmo/mysql');
+const { dml, cleanup } = require('@eunmo/mysql');
 const request = require('supertest');
 const app = require('../app');
 

@@ -132,7 +132,7 @@ test('update game 3+4', async () => {
 
   let rows = await query('SELECT * FROM game WHERE id in (?)', [[gid3, gid4]]);
   expect(rows.length).toBe(2);
-  let [row1, row2] = rows;
+  let [row1, row2, row3] = rows;
   expect(row1.l).toBe(1);
   expect(row1.r).toBe(4);
   expect(row1.lp).toBe(11);
@@ -146,7 +146,6 @@ test('update game 3+4', async () => {
 
   rows = await query('SELECT * FROM person ORDER BY id');
   expect(rows.length).toBe(3);
-  let row3;
   [row1, row2, row3] = rows;
   expect(row1.id).toBe(1);
   expect(row1.rating).toBe(1428);
