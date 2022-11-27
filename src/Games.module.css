@@ -31,5 +31,28 @@
 .gameGrid {
   display: grid;
   grid-gap: 8px;
-  grid-template-columns: 40px 3fr repeat(2, 1fr) 3fr 40px;
+  grid-template-columns: 40px 3fr 2fr 3fr 40px;
+}
+
+.numberGrid {
+  display: grid;
+  font-size: 18px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 20px);
+  line-height: 20px;
+}
+
+.d {
+  color: var(--light-text);
+  font-size: 15px;
+  grid-column: 1 / 3;
+}
+
+.totalLeft {
+  grid-column-start: 2;
+  background-color: var(--background);
+}
+
+.totalRight {
+  grid-column-end: -1;
 }

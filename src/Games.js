@@ -11,10 +11,10 @@ function Score({ scores }) {
   );
 }
 
-function PersonLink({ id, loser }) {
+function PersonLink({ id, loser, cn }) {
   const to = `/person/${id}`;
   return (
-    <LinkButton size="sm" to={to} cn={loser ? style.loser : ''}>
+    <LinkButton size="sm" to={to} cn={cn ?? (loser ? style.loser : '')}>
       {peopleMap[id].name}
     </LinkButton>
   );
@@ -37,6 +37,10 @@ function cmpName(a, b) {
   return peopleMap[a].name < peopleMap[b].name ? -1 : 1;
 }
 
+function displayD(d) {
+  return d > 0 ? `+${d}` : d;
+}
+
 function Games({ games }) {
   const [selected, setSelected] = useState(-1);
 
@@ -51,15 +55,26 @@ function Games({ games }) {
     if (selected !== -1) {
       return sortedGames
         .filter(({ l, r }) => [l, r].includes(selected))
-        .map(({ id, l, r, lp, rp }) => {
+        .map(({ id, l, r, lp, rp, d }) => {
           if (r === selected) {
-            return { id, l: r, r: l, lp: rp, rp: lp };
+            return { id, l: r, r: l, lp: rp, rp: lp, d: -d };
           }
-          return { id, l, r, lp, rp };
+          return { id, l, r, lp, rp, d };
         });
     }
-    return sortedGames;
+    return sortedGames.map(({ id, l, r, lp, rp, d }) => {
+      if (rp > lp) {
+        return { id, l: r, r: l, lp: rp, rp: lp, d: -d };
+      }
+      return { id, l, r, lp, rp, d };
+    });
   }, [sortedGames, selected]);
+  const diffSum = useMemo(() => {
+    if (selected === -1) {
+      return;
+    }
+    return filtered.map(({ d }) => d).reduce((a, b) => a + b, 0);
+  }, [selected, filtered]);
 
   return (
     <div className={style.Games}>
@@ -83,12 +98,22 @@ function Games({ games }) {
         ))}
       </div>
       <div className={style.gameGrid}>
-        {filtered.map(({ id, l, r, lp, rp }, index) => (
+        {selected !== -1 && (
+          <>
+          <PersonLink cn={style.totalLeft} id={selected} />
+          <div className={style.total}>{displayD(diffSum)} </div>
+          <div className={style.totalRight} />
+          </>
+        )}
+        {filtered.map(({ id, l, r, lp, rp, d }, index) => (
           <Fragment key={id}>
             <div className="light-text">{index + 1}</div>
             <PersonLink id={l} loser={lp <= rp} />
-            <Score scores={[lp, rp]} />
-            <Score scores={[rp, lp]} />
+            <div className={style.numberGrid}>
+              <Score scores={[lp, rp]} />
+              <Score scores={[rp, lp]} />
+              <div className={style.d}>{displayD(d)}</div>
+            </div>
             <PersonLink id={r} loser={rp <= lp} />
             <GameLink id={id} type="individual" />
           </Fragment>
