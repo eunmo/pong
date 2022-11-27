@@ -10,8 +10,8 @@ beforeEach(async () => {
 });
 
 test('add one game', async () => {
-  const [l, r, lp, rp] = [1, 2, 3, 4];
-  await addGame(l, r, lp, rp);
+  const [l, r, lp, rp, d] = [1, 2, 3, 4, 5];
+  await addGame(l, r, lp, rp, d);
   const rows = await query('SELECT * FROM game');
   expect(rows.length).toBe(1);
 
@@ -20,11 +20,12 @@ test('add one game', async () => {
   expect(row.r).toBe(r);
   expect(row.lp).toBe(lp);
   expect(row.rp).toBe(rp);
+  expect(row.d).toBe(d);
 });
 
 test('update one game', async () => {
-  let [l, r, lp, rp] = [1, 2, 3, 4];
-  await addGame(l, r, lp, rp);
+  let [l, r, lp, rp, d] = [1, 2, 3, 4, 5];
+  await addGame(l, r, lp, rp, d);
 
   let rows = await query('SELECT * FROM game');
   expect(rows.length).toBe(1);
@@ -34,10 +35,11 @@ test('update one game', async () => {
   expect(row.r).toBe(r);
   expect(row.lp).toBe(lp);
   expect(row.rp).toBe(rp);
+  expect(row.d).toBe(d);
 
   const { id } = row;
-  [l, r, lp, rp] = [5, 6, 7, 8];
-  await editGame(id, l, r, lp, rp);
+  [l, r, lp, rp, d] = [6, 7, 8, 9, 10];
+  await editGame(id, l, r, lp, rp, d);
 
   rows = await query('SELECT * FROM game WHERE id = ?', [id]);
   expect(rows.length).toBe(1);
@@ -47,11 +49,12 @@ test('update one game', async () => {
   expect(row.r).toBe(r);
   expect(row.lp).toBe(lp);
   expect(row.rp).toBe(rp);
+  expect(row.d).toBe(d);
 });
 
 test('delete one game', async () => {
-  const [l, r, lp, rp] = [1, 2, 3, 4];
-  await addGame(l, r, lp, rp);
+  const [l, r, lp, rp, d] = [1, 2, 3, 4, 5];
+  await addGame(l, r, lp, rp, d);
 
   let rows = await query('SELECT * FROM game');
   expect(rows.length).toBe(1);

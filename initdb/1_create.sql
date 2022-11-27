@@ -9,8 +9,15 @@ CREATE TABLE game (
   r SMALLINT NOT NULL,
   lp SMALLINT NOT NULL,
   rp SMALLINT NOT NULL,
+  d SMALLINT NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
   KEY (l),
   KEY (r),
   KEY (time)
+);
+
+CREATE TABLE person (
+  id INT NOT NULL,
+  rating SMALLINT NOT NULL,
+  PRIMARY KEY (id)
 );

@@ -44,6 +44,7 @@ test('create game', async () => {
   expect(row.r).toBe(r);
   expect(row.lp).toBe(lp);
   expect(row.rp).toBe(rp);
+  expect(row.d).toBe(10);
 });
 
 test('update game', async () => {
@@ -60,6 +61,7 @@ test('update game', async () => {
   expect(row.r).toBe(r);
   expect(row.lp).toBe(lp);
   expect(row.rp).toBe(rp);
+  expect(row.d).toBe(10);
 });
 
 test('delete game', async () => {
