@@ -2,7 +2,7 @@ import { Fragment, useMemo, useState } from 'react';
 
 import LinkButton from './LinkButton';
 import { Edit } from './svg';
-import { peopleMap } from './utils';
+import { peopleMap, displayDiff } from './utils';
 import style from './Games.module.css';
 
 function Score({ scores }) {
@@ -37,10 +37,6 @@ function cmpName(a, b) {
   return peopleMap[a].name < peopleMap[b].name ? -1 : 1;
 }
 
-function displayD(d) {
-  return d > 0 ? `+${d}` : d;
-}
-
 function Games({ games }) {
   const [selected, setSelected] = useState(-1);
 
@@ -69,12 +65,10 @@ function Games({ games }) {
       return { id, l, r, lp, rp, d };
     });
   }, [sortedGames, selected]);
-  const diffSum = useMemo(() => {
-    if (selected === -1) {
-      return;
-    }
-    return filtered.map(({ d }) => d).reduce((a, b) => a + b, 0);
-  }, [selected, filtered]);
+  const diffSum = useMemo(
+    () => filtered.map(({ d }) => d).reduce((a, b) => a + b, 0),
+    [filtered]
+  );
 
   return (
     <div className={style.Games}>
@@ -100,9 +94,9 @@ function Games({ games }) {
       <div className={style.gameGrid}>
         {selected !== -1 && (
           <>
-          <PersonLink cn={style.totalLeft} id={selected} />
-          <div className={style.total}>{displayD(diffSum)} </div>
-          <div className={style.totalRight} />
+            <PersonLink cn={style.totalLeft} id={selected} />
+            <div className={style.total}>{displayDiff(diffSum)} </div>
+            <div className={style.totalRight} />
           </>
         )}
         {filtered.map(({ id, l, r, lp, rp, d }, index) => (
@@ -112,7 +106,7 @@ function Games({ games }) {
             <div className={style.numberGrid}>
               <Score scores={[lp, rp]} />
               <Score scores={[rp, lp]} />
-              <div className={style.d}>{displayD(d)}</div>
+              <div className={style.d}>{displayDiff(d)}</div>
             </div>
             <PersonLink id={r} loser={rp <= lp} />
             <GameLink id={id} type="individual" />

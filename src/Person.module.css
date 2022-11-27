@@ -8,12 +8,22 @@
 .opponents {
   display: grid;
   grid-gap: 8px;
-  grid-template-columns: 1fr 2fr 40px;
+  grid-template-columns: 40px 1fr repeat(4, 40px);
+}
+
+.opponents div,
+.opponents a {
+  height: var(--button-height);
+  line-height: var(--button-height);
 }
 
 .stat {
-  height: var(--button-height);
-  line-height: var(--button-height);
+  font-size: 16px;
+}
+
+.rate,
+.wins {
+  text-align: right;
 }
 
 .button {

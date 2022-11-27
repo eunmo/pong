@@ -3,6 +3,7 @@ const { addGame } = require('./dml');
 
 async function prepare() {
   await dml('TRUNCATE TABLE game');
+  await dml('TRUNCATE TABLE person');
 
   const { insertId: gid1 } = await addGame(1, 2, 11, 6, 10);
   const { insertId: gid2 } = await addGame(1, 2, 11, 7, 9);
@@ -29,6 +30,10 @@ async function prepare() {
   const [{ gameDate: date2 }] = await query(
     'SELECT DATE(time) as gameDate FROM game WHERE id = ?',
     [gid2]
+  );
+
+  await dml(
+    'INSERT INTO person (id, rating) VALUES (1, 1428), (2, 1391), (3, 1381)'
   );
 
   return { gid1, gid2, gid3, gid4, date1, date2 };

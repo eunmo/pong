@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getGamesByPerson } = require('../db');
+const { getGamesByPerson, getPersons } = require('../db');
 
 const router = express.Router();
 
@@ -12,21 +12,34 @@ router.get('/summary/:pid', async (req, res) => {
   const byOpponent = {};
 
   games
-    .map(({ l, r, lp, rp }) =>
-      r === id ? { r: l, lp: rp, rp: lp } : { r, lp, rp }
+    .map(({ l, r, lp, rp, d }) =>
+      r === id ? { r: l, lp: rp, rp: lp, d: -d } : { r, lp, rp, d }
     )
-    .forEach(({ r, lp, rp }) => {
-      const opponent = byOpponent[r] ?? { id: r, count: 0, wins: 0 };
+    .forEach(({ r, lp, rp, d }) => {
+      const opponent = byOpponent[r] ?? { id: r, count: 0, wins: 0, diff: 0 };
 
       if (lp > rp) {
         opponent.wins += 1;
       }
 
       opponent.count += 1;
+      opponent.diff += d;
       byOpponent[r] = opponent;
     });
 
-  res.json({ opponents: Object.values(byOpponent) });
+  const opponentIds = [...Object.keys(byOpponent)];
+  const persons = await getPersons(opponentIds);
+  const ratingsMap = Object.fromEntries(
+    persons.map(({ personId, rating }) => [personId, rating])
+  );
+  const opponents = Object.entries(byOpponent).map(
+    ([opponentId, opponent]) => ({
+      ...opponent,
+      rating: ratingsMap[opponentId] ?? 1400,
+    })
+  );
+
+  res.json(opponents);
 });
 
 module.exports = router;

@@ -48,6 +48,10 @@ function formatDate(date) {
   return `${m}월 ${d}일`;
 }
 
+function displayDiff(diff) {
+  return diff > 0 ? `+${diff}` : diff;
+}
+
 export {
   get,
   post,
@@ -59,4 +63,5 @@ export {
   peopleMap,
   peopleGrouped,
   formatDate,
+  displayDiff,
 };

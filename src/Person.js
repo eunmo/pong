@@ -3,19 +3,15 @@ import { useParams } from 'react-router-dom';
 
 import LinkButton from './LinkButton';
 import { View } from './svg';
-import { get, peopleMap } from './utils';
+import { get, peopleMap, displayDiff } from './utils';
 import style from './Person.module.css';
 
 function cmpOpponent(a, b) {
-  if (a.rate === b.rate) {
+  if (a.rating === b.rating) {
     return peopleMap[a.id].name < peopleMap[b.id].name ? -1 : 1;
   }
 
-  return b.rate - a.rate;
-}
-
-function pad(number) {
-  return `${number}`.padStart(3, '\xa0');
+  return b.rating - a.rating;
 }
 
 function Person() {
@@ -23,17 +19,18 @@ function Person() {
   const { id: pid } = useParams();
 
   useEffect(() => {
-    get(`/api/person/summary/${pid}`, (data) => setOpponents(data.opponents));
+    get(`/api/person/summary/${pid}`, setOpponents);
   }, [pid]);
 
   const calculated = useMemo(
     () =>
       opponents
-        .map(({ id, count, wins }) => ({
+        .map(({ id, count, wins, rating, diff }) => ({
           id,
-          count,
           wins,
           rate: Math.round((wins / count) * 100),
+          rating,
+          diff,
         }))
         .sort(cmpOpponent),
     [opponents]
@@ -43,13 +40,22 @@ function Person() {
     <div className={style.Person}>
       <div className="header">{peopleMap[pid].name}</div>
       <div className={style.opponents}>
-        {calculated.map(({ id, count, wins, rate }) => (
+        <div className="light-text">Elo</div>
+        <div className="light-text">상대</div>
+        <div className="light-text">승률</div>
+        <div className="light-text">승수</div>
+        <div className="light-text">변동</div>
+        <div className="light-text">전적</div>
+        {calculated.map(({ id, wins, rate, rating, diff }) => (
           <Fragment key={id}>
+            <div className={`${style.stat} mono light-text`}>{rating}</div>
             <LinkButton to={`/person/${id}`} size="sm">
               {peopleMap[id].name}
             </LinkButton>
-            <div className={`${style.stat} mono`}>
-              {pad(rate)}%{pad(count)}전{pad(wins)}승
+            <div className={`${style.stat} ${style.rate} mono`}>{rate}%</div>
+            <div className={`${style.stat} ${style.wins} mono`}>{wins}승</div>
+            <div className={`${style.stat} ${style.wins} mono`}>
+              {displayDiff(diff)}
             </div>
             <LinkButton to={`/duo/${pid}/${id}`} size="sm" cn={style.button}>
               <View />
