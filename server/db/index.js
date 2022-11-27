@@ -14,6 +14,7 @@ const {
   getGamesByPerson,
   getHistory,
   getPersons,
+  getAllPersons,
 } = require('./query');
 
 module.exports = {
@@ -30,4 +31,5 @@ module.exports = {
   getGamesByPerson,
   getHistory,
   getPersons,
+  getAllPersons,
 };

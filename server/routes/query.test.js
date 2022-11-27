@@ -78,19 +78,6 @@ test('get history', async () => {
   await check(3, 2, [gid4]);
 });
 
-test('get rank', async () => {
-  const { ratings } = await get('/api/rank');
-
-  expect(ratings.length).toBe(3);
-
-  const ratingMap = Object.fromEntries(
-    ratings.map(({ id, rating }) => [id, rating])
-  );
-  expect(ratingMap[1]).toBe(1428);
-  expect(ratingMap[2]).toBe(1391);
-  expect(ratingMap[3]).toBe(1381);
-});
-
 test('get person summary', async () => {
   async function check(pid1, pid2, count, wins) {
     const { opponents } = await get(`/api/person/summary/${pid1}`);

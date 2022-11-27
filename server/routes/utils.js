@@ -16,26 +16,6 @@ function calculateDiff(lr, rr, lp, rp) {
   return Math.round(K * (w - we));
 }
 
-function calculate(games, preset) {
-  const people = { ...preset };
-
-  games.forEach(({ l, r, lp, rp }) => {
-    const left = people[l] ?? { id: l, ...defaultRank };
-    const right = people[r] ?? { id: r, ...defaultRank };
-    const { rating: lr } = left;
-    const { rating: rr } = right;
-
-    const d = calculateDiff(lr, rr, lp, rp);
-
-    left.rating = lr + d;
-    right.rating = rr - d;
-    people[l] = left;
-    people[r] = right;
-  });
-
-  return people;
-}
-
 function writeHistory(games) {
   const people = {};
   const gamesToUpdate = games
@@ -64,4 +44,4 @@ function writeHistory(games) {
   return [gamesToUpdate, personsToUpdate];
 }
 
-module.exports = { calculate, calculateDiff, writeHistory };
+module.exports = { calculateDiff, writeHistory };

@@ -36,7 +36,7 @@ function Rating() {
 
   useEffect(() => {
     get('/api/rank', (data) => {
-      const sortedRatings = data.ratings.sort(cmpRating);
+      const sortedRatings = data.sort(cmpRating);
       let prevRank = 1;
       let prevRating = 10000;
       const indexed = sortedRatings.map(({ id, rating }, index) => {
