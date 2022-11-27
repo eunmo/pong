@@ -1,4 +1,11 @@
-const { addGame, editGame, removeGame } = require('./dml');
+const {
+  addGame,
+  editGame,
+  editGames,
+  removeGame,
+  upsertPersons,
+  removePersonsNotIn,
+} = require('./dml');
 const {
   getGameDates,
   getGames,
@@ -6,16 +13,21 @@ const {
   getGamesById,
   getGamesByPerson,
   getHistory,
+  getPersons,
 } = require('./query');
 
 module.exports = {
   addGame,
   editGame,
+  editGames,
   removeGame,
+  upsertPersons,
+  removePersonsNotIn,
   getGameDates,
   getGames,
   getGamesByDate,
   getGamesById,
   getGamesByPerson,
   getHistory,
+  getPersons,
 };

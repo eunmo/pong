@@ -5,8 +5,8 @@ async function prepare() {
   await dml('TRUNCATE TABLE game');
 
   const { insertId: gid1 } = await addGame(1, 2, 11, 6, 10);
-  const { insertId: gid2 } = await addGame(1, 2, 11, 7, 10);
-  const { insertId: gid3 } = await addGame(1, 3, 11, 8, 10);
+  const { insertId: gid2 } = await addGame(1, 2, 11, 7, 9);
+  const { insertId: gid3 } = await addGame(1, 3, 11, 8, 9);
   const { insertId: gid4 } = await addGame(2, 3, 11, 9, 10);
 
   await dml('UPDATE game SET time = "2022-03-31 21:01:02" WHERE id = ?', [

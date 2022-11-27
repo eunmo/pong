@@ -36,4 +36,32 @@ function calculate(games, preset) {
   return people;
 }
 
-module.exports = { calculate, calculateDiff };
+function writeHistory(games) {
+  const people = {};
+  const gamesToUpdate = games
+    .map(({ id, l, r, lp, rp, d }) => {
+      const left = people[l] ?? { id: l, ...defaultRank };
+      const right = people[r] ?? { id: r, ...defaultRank };
+      const { rating: lr } = left;
+      const { rating: rr } = right;
+
+      const diff = calculateDiff(lr, rr, lp, rp);
+
+      left.rating = lr + diff;
+      right.rating = rr - diff;
+      people[l] = left;
+      people[r] = right;
+
+      return { id, d, diff };
+    })
+    .filter(({ d, diff }) => d !== diff)
+    .map(({ id, diff }) => [id, diff]);
+  const personsToUpdate = Object.values(people).map(({ id, rating }) => [
+    id,
+    rating,
+  ]);
+
+  return [gamesToUpdate, personsToUpdate];
+}
+
+module.exports = { calculate, calculateDiff, writeHistory };
