@@ -30,7 +30,7 @@ router.get('/summary/:pid', async (req, res) => {
   const opponentIds = [...Object.keys(byOpponent)];
   const persons = await getPersons(opponentIds);
   const ratingsMap = Object.fromEntries(
-    persons.map(({ personId, rating }) => [personId, rating])
+    persons.map(({ id: personId, rating }) => [personId, rating])
   );
   const opponents = Object.entries(byOpponent).map(
     ([opponentId, opponent]) => ({
