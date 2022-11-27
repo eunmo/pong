@@ -1,4 +1,20 @@
-const { calculate } = require('./utils');
+const { calculate, calculateDiff } = require('./utils');
+
+test.each([
+  [1400, 1400, 11, 0, 10],
+  [1400, 1400, 11, 11, 0],
+  [1400, 1400, 0, 11, -10],
+  [1600, 1400, 11, 0, 5],
+  [1600, 1400, 11, 11, -5],
+  [1600, 1400, 0, 11, -15],
+  [1400, 1400, 11, 0, 10], // game 1, 1 vs 2
+  [1410, 1390, 11, 0, 9], // game 2, 1 vs 2
+  [1419, 1400, 11, 0, 9], // game 3, 1 vs 3
+  [1381, 1391, 11, 0, 10], // game 3, 2 vs 3
+])('test calculate', (lr, rr, lp, rp, expected) => {
+  const diff = calculateDiff(lr, rr, lp, rp);
+  expect(diff).toBe(expected);
+});
 
 test.each([
   [1400, 1400, 11, 0, 1410, 1390],

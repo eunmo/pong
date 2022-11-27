@@ -1,4 +1,20 @@
 const defaultRank = { rating: 1400 };
+const K = 20;
+
+function calculateDiff(lr, rr, lp, rp) {
+  const exponent = (rr - lr) / 400;
+  const we = 1 / (10 ** exponent + 1);
+
+  let w = 0.5;
+
+  if (lp > rp) {
+    w = 1.0;
+  } else if (lp < rp) {
+    w = 0.0;
+  }
+
+  return Math.round(K * (w - we));
+}
 
 function calculate(games, preset) {
   const people = { ...preset };
@@ -6,27 +22,13 @@ function calculate(games, preset) {
   games.forEach(({ l, r, lp, rp }) => {
     const left = people[l] ?? { id: l, ...defaultRank };
     const right = people[r] ?? { id: r, ...defaultRank };
-    let { rating: lr } = left;
-    let { rating: rr } = right;
+    const { rating: lr } = left;
+    const { rating: rr } = right;
 
-    const exponent = (rr - lr) / 400;
-    const wel = 1 / (10 ** exponent + 1);
-    const wer = 1 - wel;
+    const d = calculateDiff(lr, rr, lp, rp);
 
-    let [wl, wr] = [0.5, 0.5];
-
-    if (lp > rp) {
-      [wl, wr] = [1.0, 0.0];
-    } else if (lp < rp) {
-      [wl, wr] = [0.0, 1.0];
-    }
-
-    const k = 20;
-    lr += k * (wl - wel);
-    rr += k * (wr - wer);
-
-    left.rating = Math.round(lr);
-    right.rating = Math.round(rr);
+    left.rating = lr + d;
+    right.rating = rr - d;
     people[l] = left;
     people[r] = right;
   });
@@ -34,4 +36,4 @@ function calculate(games, preset) {
   return people;
 }
 
-module.exports = { calculate };
+module.exports = { calculate, calculateDiff };

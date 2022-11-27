@@ -7,19 +7,21 @@ function addGame(l, r, lp, rp, d) {
 }
 
 function editGame(id, l, r, lp, rp, d) {
-  const sql = `\
-UPDATE game
-SET l = ?, r = ?, lp = ?, rp = ?, d = ?
-WHERE id = ?`;
-  return dml(sql, [l, r, lp, rp, d, id]);
+  return dml(
+    'UPDATE game SET l = ?, r = ?, lp = ?, rp = ?, d = ? WHERE id = ?',
+    [l, r, lp, rp, d, id]
+  );
 }
 
 function removeGame(id) {
   return dml('DELETE FROM game WHERE id = ?', [id]);
 }
 
-function updatePersonRating(id, rating) {
-  return dml('UPDATE person SET rating = ? WHERE id = ?', [rating, id]);
+function upsertPerson(id, rating) {
+  return dml(
+    'INSERT INTO person (id, rating) VALUES (?, ?) ON DUPLICATE KEY UPDATE rating = ?',
+    [id, rating, rating]
+  );
 }
 
-module.exports = { addGame, editGame, removeGame, updatePersonRating };
+module.exports = { addGame, editGame, removeGame, upsertPerson };

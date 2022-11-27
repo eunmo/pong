@@ -29,6 +29,10 @@ function getHistory(id1, id2) {
   );
 }
 
+function getPersons(ids) {
+  return query('SELECT * FROM person WHERE id in ?', ids);
+}
+
 module.exports = {
   getGameDates,
   getGames,
@@ -36,4 +40,5 @@ module.exports = {
   getGamesById,
   getGamesByPerson,
   getHistory,
+  getPersons,
 };
