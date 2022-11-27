@@ -27,7 +27,6 @@ function Person() {
       opponents
         .map(({ id, count, wins, rating, diff }) => ({
           id,
-          wins,
           rate: Math.round((wins / count) * 100),
           rating,
           diff,
@@ -43,17 +42,15 @@ function Person() {
         <div className="light-text">Elo</div>
         <div className="light-text">상대</div>
         <div className="light-text">승률</div>
-        <div className="light-text">승수</div>
         <div className="light-text">변동</div>
         <div className="light-text">전적</div>
-        {calculated.map(({ id, wins, rate, rating, diff }) => (
+        {calculated.map(({ id, rate, rating, diff }) => (
           <Fragment key={id}>
             <div className={`${style.stat} mono light-text`}>{rating}</div>
             <LinkButton to={`/person/${id}`} size="sm">
               {peopleMap[id].name}
             </LinkButton>
             <div className={`${style.stat} ${style.rate} mono`}>{rate}%</div>
-            <div className={`${style.stat} ${style.wins} mono`}>{wins}승</div>
             <div className={`${style.stat} ${style.wins} mono`}>
               {displayDiff(diff)}
             </div>
