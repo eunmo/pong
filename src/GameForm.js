@@ -113,7 +113,10 @@ function GameForm({
   }, []);
 
   const peopleSorted = useMemo(
-    () => people.sort((a, b) => (a.name < b.name ? -1 : 1)),
+    () =>
+      people
+        .filter(({ mia }) => !mia)
+        .sort((a, b) => (a.name < b.name ? -1 : 1)),
     []
   );
 
