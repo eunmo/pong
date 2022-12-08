@@ -59,9 +59,7 @@ function Person() {
                 {peopleMap[id].name}
               </LinkButton>
               <div className={`${style.rate} mono`}>{rate}%</div>
-              <div className={`${style.wins} mono`}>
-                {displayDiff(diff)}
-              </div>
+              <div className={`${style.wins} mono`}>{displayDiff(diff)}</div>
               <LinkButton to={`/duo/${pid}/${id}`} size="sm" cn={style.button}>
                 <View />
               </LinkButton>
