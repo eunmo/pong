@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import LinkButton from './LinkButton';
@@ -15,25 +15,24 @@ function cmpOpponent(a, b) {
 }
 
 function Person() {
-  const [opponents, setOpponents] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const { id: pid } = useParams();
 
   useEffect(() => {
-    get(`/api/person/summary/${pid}`, setOpponents);
-  }, [pid]);
-
-  const calculated = useMemo(
-    () =>
-      opponents
-        .map(({ id, count, wins, rating, diff }) => ({
-          id,
-          rate: Math.round((wins / count) * 100),
-          rating,
-          diff,
-        }))
-        .sort(cmpOpponent),
-    [opponents]
-  );
+    get(`/api/person/summary/${pid}`, ({ opponents, rating: myRating }) => {
+      setRatings(
+        [
+          ...opponents.map(({ id, count, wins, rating, diff }) => ({
+            id,
+            rate: Math.round((wins / count) * 100),
+            rating,
+            diff,
+          })),
+          { id: pid, rating: myRating, self: true },
+        ].sort(cmpOpponent)
+      );
+    });
+  }, [pid, setRatings]);
 
   return (
     <div className={style.Person}>
@@ -44,21 +43,31 @@ function Person() {
         <div className="light-text">승률</div>
         <div className="light-text">변동</div>
         <div className="light-text">전적</div>
-        {calculated.map(({ id, rate, rating, diff }) => (
-          <Fragment key={id}>
-            <div className={`${style.stat} mono light-text`}>{rating}</div>
-            <LinkButton to={`/person/${id}`} size="sm">
-              {peopleMap[id].name}
-            </LinkButton>
-            <div className={`${style.stat} ${style.rate} mono`}>{rate}%</div>
-            <div className={`${style.stat} ${style.wins} mono`}>
-              {displayDiff(diff)}
-            </div>
-            <LinkButton to={`/duo/${pid}/${id}`} size="sm" cn={style.button}>
-              <View />
-            </LinkButton>
-          </Fragment>
-        ))}
+        {ratings.map(({ id, rate, rating, diff, self }) =>
+          self ? (
+            <Fragment key={id}>
+              <div className={`${style.stat} mono light-text`}>{rating}</div>
+              <div className={style.self}>{peopleMap[id].name}</div>
+              <div />
+              <div />
+              <div />
+            </Fragment>
+          ) : (
+            <Fragment key={id}>
+              <div className="mono light-text">{rating}</div>
+              <LinkButton to={`/person/${id}`} size="sm">
+                {peopleMap[id].name}
+              </LinkButton>
+              <div className={`${style.rate} mono`}>{rate}%</div>
+              <div className={`${style.wins} mono`}>
+                {displayDiff(diff)}
+              </div>
+              <LinkButton to={`/duo/${pid}/${id}`} size="sm" cn={style.button}>
+                <View />
+              </LinkButton>
+            </Fragment>
+          )
+        )}
       </div>
     </div>
   );

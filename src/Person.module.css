@@ -17,7 +17,8 @@
   line-height: var(--button-height);
 }
 
-.stat {
+.self {
+  background-color: var(--highlight);
 }
 
 .rate,
